@@ -69,37 +69,84 @@ if (marqueeTrack) {
 }
 
 // ============================================
-// Rotating quotes
+// Hero Apple-style scroll parallax
 // ============================================
-const quoteSlides = document.querySelectorAll(".quote-slide");
-const quoteDotsWrap = document.getElementById("quoteDots");
-let quoteIndex = 0;
-let quoteTimer = null;
+const heroEl = document.getElementById("hero");
+const heroWordmarks = document.getElementById("heroWordmarks");
+const heroVisual = document.getElementById("heroVisual");
 
-if (quoteSlides.length && quoteDotsWrap) {
-  quoteSlides.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.setAttribute("aria-label", `Show quote ${i + 1}`);
-    if (i === 0) dot.classList.add("is-active");
-    dot.addEventListener("click", () => goToQuote(i));
-    quoteDotsWrap.appendChild(dot);
-  });
+if (heroEl && heroWordmarks && heroVisual && !prefersReducedMotion) {
+  let heroRaf = 0;
 
-  function goToQuote(i) {
-    quoteSlides[quoteIndex].classList.remove("is-active");
-    quoteDotsWrap.children[quoteIndex].classList.remove("is-active");
-    quoteIndex = i;
-    quoteSlides[quoteIndex].classList.add("is-active");
-    quoteDotsWrap.children[quoteIndex].classList.add("is-active");
-  }
+  const updateHeroParallax = () => {
+    heroRaf = 0;
+    const rect = heroEl.getBoundingClientRect();
+    const progress = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1);
+    const yWord = progress * 70;
+    const yVisual = progress * -24;
+    const scaleWord = 1 + progress * 0.1;
+    heroWordmarks.style.transform = `translate3d(0, ${yWord}px, 0) scale(${scaleWord})`;
+    heroVisual.style.transform = `translate3d(0, ${yVisual}px, 0)`;
+  };
 
-  function nextQuote() {
-    goToQuote((quoteIndex + 1) % quoteSlides.length);
-  }
+  const onHeroScroll = () => {
+    if (heroRaf) return;
+    heroRaf = requestAnimationFrame(updateHeroParallax);
+  };
 
-  if (!prefersReducedMotion) {
-    quoteTimer = setInterval(nextQuote, 4500);
-  }
+  updateHeroParallax();
+  window.addEventListener("scroll", onHeroScroll, { passive: true });
+  window.addEventListener("resize", onHeroScroll);
+}
+
+// ============================================
+// Writing series slider (manual scroll only)
+// ============================================
+const writingViewport = document.getElementById("writingViewport");
+const writingPrev = document.getElementById("writingPrev");
+const writingNext = document.getElementById("writingNext");
+
+if (writingViewport && writingPrev && writingNext) {
+  const getCards = () => Array.from(writingViewport.querySelectorAll(".writing-card"));
+
+  const getActiveIndex = () => {
+    const cards = getCards();
+    if (!cards.length) return 0;
+    const viewRect = writingViewport.getBoundingClientRect();
+    const mid = viewRect.left + viewRect.width / 2;
+    let best = 0;
+    let bestDist = Infinity;
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      const dist = Math.abs(center - mid);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    return best;
+  };
+
+  const goToIndex = (index) => {
+    const cards = getCards();
+    if (!cards.length) return;
+    const clamped = Math.max(0, Math.min(index, cards.length - 1));
+    cards[clamped].scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  };
+
+  const onNav = (dir) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    goToIndex(getActiveIndex() + dir);
+  };
+
+  writingPrev.addEventListener("click", onNav(-1));
+  writingNext.addEventListener("click", onNav(1));
 }
 
 // ============================================

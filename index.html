@@ -29,9 +29,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<noscript><style>.reveal{opacity:1!important;transform:none!important} .hero-kicker,.hero-title,.hero-sub,.hero-actions,.hero-links{opacity:1!important;animation:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important} .hero-kicker,.hero-title,.hero-tagline,.hero-sub,.hero-actions,.hero-visual,.hero-below{opacity:1!important;animation:none!important}</style></noscript>
 
 <script type="application/ld+json">
 {
@@ -89,10 +89,11 @@
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#series">Series</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-end">
-      <span class="availability-pill" title="Open to opportunities">Open to work</span>
+      <a href="#open-to-work" class="availability-pill" title="Open to opportunities">Open to work</a>
       <a href="#contact" class="nav-cta">Let's talk</a>
     </div>
   </div>
@@ -100,23 +101,51 @@
 
 <main id="top">
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- HERO (Apple-style layered stage) -->
+  <section class="hero" id="hero">
     <canvas id="mesh"></canvas>
-    <div class="hero-content">
-      <p class="hero-kicker">DevOps Engineer · AWS &amp; Azure</p>
-      <h1 class="hero-title">Built for Scale.<br>Ready for Production.</h1>
-      <p class="hero-sub">DevOps Engineer specializing in AWS, Azure, Kubernetes, CI/CD, and cloud-native infrastructure — building reliable, scalable systems that stay ready for production.</p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">See the work</a>
+
+    <div class="hero-wordmarks" id="heroWordmarks" aria-hidden="true">
+      <span class="hero-wordmark hero-wordmark--main">DEVOPS</span>
+    </div>
+
+    <div class="hero-stage">
+      <div class="hero-copy">
+        <h1 class="hero-title">Built for Scale</h1>
+        <p class="hero-tagline">Ready for Production</p>
+        <p class="hero-sub">DevOps Engineer specializing in AWS, Azure, Kubernetes, CI/CD, and cloud-native infrastructure — building reliable, scalable systems that teams can confidently run in production.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">See the work</a>
+          <a href="#open-to-work" class="btn btn-ghost">Open to work</a>
+        </div>
       </div>
+
+      <div class="hero-visual" id="heroVisual" aria-hidden="true">
+        <div class="hero-product" id="heroProduct">
+          <img src="assets/Devops-symbol.png" alt="" class="hero-product-photo">
+          <div class="hero-float-card hero-float-card--arch">
+            <img src="assets/101genai-architecture.png" alt="">
+          </div>
+          <div class="hero-float-card hero-float-card--stack">
+            <img src="assets/series-devops-projects.gif" alt="">
+          </div>
+          <div class="hero-float-card hero-float-card--terraform">
+            <img src="assets/Terraform-project.gif" alt="">
+          </div>
+          <div class="hero-float-card hero-float-card--k8s">
+            <img src="assets/kubernetes.gif" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-below">
       <div class="hero-links" aria-label="Professional profiles">
         <a class="hero-link-card" href="assets/Harshit_Sahu_Resume.pdf" download>
           <span class="hero-link-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
           </span>
           <span class="hero-link-text">
-            <span class="hero-link-label">Résumé</span>
+            <span class="hero-link-label">Resume</span>
             <span class="hero-link-value">PDF download</span>
           </span>
         </a>
@@ -152,6 +181,7 @@
       <div class="marquee hero-marquee" aria-label="Tools and platforms I work with">
         <div class="marquee-track" id="marqueeTrack"></div>
       </div>
+      </div>
     </div>
 
     <div class="hero-scroll" aria-hidden="true">
@@ -160,30 +190,70 @@
     </div>
   </section>
 
-  <!-- QUOTES -->
-  <section class="quotes" aria-label="DevOps principles I build by">
-    <div class="quote-rotator" id="quoteRotator">
-      <blockquote class="quote-slide is-active">
-        <p>“You build it, you run it.”</p>
-        <cite>Werner Vogels, CTO, Amazon</cite>
-      </blockquote>
-      <blockquote class="quote-slide">
-        <p>“Hope is not a strategy.”</p>
-        <cite>Site Reliability Engineering proverb</cite>
-      </blockquote>
-      <blockquote class="quote-slide">
-        <p>“Automate everything that can be automated.”</p>
-        <cite>DevOps first principle</cite>
-      </blockquote>
-      <blockquote class="quote-slide">
-        <p>“Infrastructure should be boring.”</p>
-        <cite>SRE operating philosophy</cite>
-      </blockquote>
-      <blockquote class="quote-slide">
-        <p>“Everything fails all the time.”</p>
-        <cite>Werner Vogels, CTO, Amazon</cite>
-      </blockquote>
-      <div class="quote-dots" id="quoteDots"></div>
+  <!-- WRITING / BLOG SERIES -->
+  <section class="writing" id="series" aria-label="Technical writing and blog series">
+    <p class="writing-title">From the blog</p>
+
+    <div class="writing-slider">
+      <button class="writing-nav writing-nav--prev" type="button" aria-label="Previous series" id="writingPrev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6 9 12l6 6"/></svg>
+      </button>
+
+      <div class="writing-viewport" id="writingViewport">
+        <div class="writing-track" id="writingTrack">
+          <a class="writing-card" href="https://harshitsahu2311.hashnode.dev/series/devops-projects" target="_blank" rel="noopener noreferrer">
+            <div class="writing-card-media">
+              <img src="assets/series-devops-projects.gif" alt="DevOps Projects series cover" loading="lazy">
+            </div>
+            <div class="writing-card-body">
+              <span class="writing-card-tag">Series</span>
+              <h3>DevOps Projects</h3>
+              <p>End-to-end CI/CD and Kubernetes walkthroughs — Netflix/Amazon clones, Wanderlust, voting apps, Jenkins, Argo CD, and more.</p>
+              <span class="writing-card-cta">Read the series →</span>
+            </div>
+          </a>
+
+          <a class="writing-card" href="https://harshitsahu2311.hashnode.dev/series/aws-cloud" target="_blank" rel="noopener noreferrer">
+            <div class="writing-card-media">
+              <img src="assets/series-aws-cloud.gif" alt="AWS Cloud series cover" loading="lazy">
+            </div>
+            <div class="writing-card-body">
+              <span class="writing-card-tag">Series</span>
+              <h3>AWS Cloud</h3>
+              <p>IAM, VPC, CloudFormation, and multi-account Organizations — practical AWS architecture for secure, scalable infrastructure.</p>
+              <span class="writing-card-cta">Read the series →</span>
+            </div>
+          </a>
+
+          <a class="writing-card" href="https://harshitsahu2311.hashnode.dev/series/terraform-infrastructure-as-code" target="_blank" rel="noopener noreferrer">
+            <div class="writing-card-media">
+              <img src="assets/series-terraform.gif" alt="Terraform Infrastructure as Code series cover" loading="lazy">
+            </div>
+            <div class="writing-card-body">
+              <span class="writing-card-tag">Series</span>
+              <h3>Terraform · Infrastructure as Code</h3>
+              <p>From Terraform basics to AWS provisioning, state locking, and multi-environment infrastructure you can manage safely and repeatably.</p>
+              <span class="writing-card-cta">Read the series →</span>
+            </div>
+          </a>
+
+          <a class="writing-card" href="https://harshitsahu2311.hashnode.dev/series/cka-k8s-path" target="_blank" rel="noopener noreferrer">
+            <div class="writing-card-media">
+              <img src="assets/series-cka.webp" alt="Certified Kubernetes Administrator series cover" loading="lazy">
+            </div>
+            <div class="writing-card-body">
+              <span class="writing-card-tag">Series</span>
+              <h3>Certified Kubernetes Administrator</h3>
+              <p>CKA path covering Docker, cluster architecture, Kind labs, pods, Deployments, and ReplicaSets for exam and production ops.</p>
+              <span class="writing-card-cta">Read the series →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <button class="writing-nav writing-nav--next" type="button" aria-label="Next series" id="writingNext">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
     </div>
   </section>
 
@@ -447,7 +517,7 @@
     <h2 class="reveal">Hire a DevOps engineer for your cloud team</h2>
     <p class="reveal">Open to DevOps Engineer, SRE, Cloud Engineer, and Cloud Architect roles — full-time, contract, or freelance. For project-based or consulting work, reach out below and I’ll get back quickly.</p>
 
-    <div class="availability-card reveal">
+    <div class="availability-card reveal" id="open-to-work">
       <div class="availability-banner-bg" aria-hidden="true">
         <img src="assets/harshit-sahu-banner.jpeg" alt="">
       </div>
